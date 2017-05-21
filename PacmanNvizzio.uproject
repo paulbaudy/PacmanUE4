@@ -1,0 +1,19 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "4.15",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "PacmanNvizzio",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"UMG",
+				"Paper2D",
+				"AIModule"
+			]
+		}
+	]
+}
