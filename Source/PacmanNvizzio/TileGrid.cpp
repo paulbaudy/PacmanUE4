@@ -167,6 +167,14 @@ FIntVector ATileGrid::WorldToGrid(FVector location)
 	return result;
 }
 
+FVector ATileGrid::FWorldToGrid(FVector location)
+{
+	FVector result;
+	result.X = (int)location.X / 16;
+	result.Y = (int)location.Y / 16; // TODO constantes
+	return result;
+}
+
 int ATileGrid::accessibleTiles(FVector location)
 {
 	UKismetSystemLibrary::DrawDebugSphere(GetWorld(), location, 10.f, 12, FLinearColor::White, 20.f);

@@ -17,6 +17,8 @@ public:
 	// Sets default values for this actor's properties
 	AdotGridActor();
 
+	void addBonusPoint(FIntVector bonus);
+
 protected:
 	/* Custom construction script. 
 	*  Will be called when the grid is place in the editor, in order to spawn dots 
@@ -27,9 +29,6 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	// Array to keep dots
-	TArray<AdotActor*> dotGrid;
-
 	/* --- COMPONENTS --- */
 	// Custom root component
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Root)
@@ -38,6 +37,8 @@ protected:
 	// Sprite used by dots
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Sprite)
 	UPaperSprite* dotSprite;
+
+	
 
 	/* --- Grid properties --- */
 	// Distance between two dots - Tile size
@@ -51,5 +52,8 @@ protected:
 	// Number of dots in Y direction
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Grid)
 	int numberY;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Grid)
+	TArray<FIntVector> bonusPoints;
 	
 };

@@ -62,6 +62,7 @@ public:
 	bool canWalk(unsigned int x, unsigned int y);
 	bool canWalk(FVector location);
 	FIntVector WorldToGrid(FVector location);
+	FVector FWorldToGrid(FVector location);
 	int accessibleTiles(unsigned int x, unsigned int y);
 	int accessibleTiles(FVector location);
 	FIntVector SpeedWorldtoSpeedGrid(FVector velocity);

@@ -20,10 +20,6 @@ AdotGridActor::AdotGridActor()
 // Construction script
 void AdotGridActor::OnConstruction(const FTransform& Transform)
 {
-	/* for (AdotActor* _dot : dotGrid) {
-		if (_dot) _dot->Destroy();
-	}
-	dotGrid.Empty();*/
 
 	TArray<AActor*> temp;
 	GetAttachedActors(temp);
@@ -33,7 +29,7 @@ void AdotGridActor::OnConstruction(const FTransform& Transform)
 	{
 		CActor->Destroy();
 	}
-	
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::SanitizeFloat(bonusPoints.Num()));
 
 	if (!dotSprite) // If dot sprite is not set, safely return
 		return;
@@ -43,6 +39,7 @@ void AdotGridActor::OnConstruction(const FTransform& Transform)
 
 	for (int i = 0; i < numberX; i++) {
 		for (int j = 0; j < numberY; j++) {
+			
 			FVector _location = GetActorLocation();
 			_location.X += i * dotDistance;
 			_location.Y += j * dotDistance;
@@ -50,15 +47,20 @@ void AdotGridActor::OnConstruction(const FTransform& Transform)
 			newDot->setSprite(dotSprite);
 
 			if (!newDot->isOverlapingMap()) {
-				dotGrid.Add(newDot);
 				newDot->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+				if (bonusPoints.Contains(FIntVector(i, j, 0))) {
+					newDot->setIsBonus(true);
+				}
 			}
-				
 			else
 				newDot->Destroy();
 
 		}
 	}
+}
+
+void AdotGridActor::addBonusPoint(FIntVector bonus) {
+	bonusPoints.Add(bonus);
 }
 
 // Called when the game starts or when spawned

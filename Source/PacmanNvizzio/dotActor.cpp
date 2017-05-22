@@ -65,6 +65,16 @@ void AdotActor::BeginPlay()
 	
 }
 
+void AdotActor::setIsBonus(bool bonus) {
+	bBonus = bonus;
+	if (bBonus) {
+		spriteComponent->SetRelativeScale3D(FVector(2.f, 2.f, 2.f));
+	}
+	else {
+		spriteComponent->SetRelativeScale3D(FVector(1.f, 1.f, 1.f));
+	}
+}
+
 void AdotActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) {
 	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
 	{

@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "dotGridActor.h"
 #include "PaperSpriteActor.h"
 #include "PaperSprite.h"
 #include "PaperSpriteComponent.h"
@@ -23,6 +24,8 @@ public:
 
 	// Checks collisions during placement in the editor
 	bool isOverlapingMap();
+
+	void setIsBonus(bool bonus);
 
 protected:
 	/* Custom construction script.

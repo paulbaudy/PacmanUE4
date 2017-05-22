@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "TileGrid.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "PacmanPawnMovement.generated.h"
 
@@ -15,6 +16,8 @@ class PACMANNVIZZIO_API UPacmanPawnMovement : public UFloatingPawnMovement
 
 	
 	UPacmanPawnMovement();
+
+
 private:
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 	
@@ -25,6 +28,13 @@ private:
 
 	// Pacman's maximum velocity
 	float maxVelocity;
+
+	
 public:
 	FVector getCurrentDirection();
+
+	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Tile)
+	ATileGrid* tileGrid;
 };
