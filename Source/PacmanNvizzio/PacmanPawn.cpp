@@ -50,6 +50,10 @@ void APacmanPawn::BeginPlay()
 	initianSpawnLocation = GetActorLocation();
 	livesLeft = 4; // TODO constantes
 	bVulnerable = true;
+
+	if (aGameManager) {
+		aGameManager->initializeLivesUI(livesLeft);
+	}
 }
 
 void APacmanPawn::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -79,6 +83,9 @@ void APacmanPawn::RespawnPlayer() {
 	livesLeft--;
 	if (livesLeft == 0) {
 		UGameplayStatics::OpenLevel(GetWorld(), "MainMenu");
+	}
+	if (aGameManager) {
+		aGameManager->decreaseLives();
 	}
 }
 

@@ -29,7 +29,8 @@ void AGameManagerActor::triggerFrightenedMode() {
 
 void AGameManagerActor::RespawnCharacters() {
 	for (AGhostCharacter* _ghost : aGhostCharacters) {
-		_ghost->RespawnGhost(); // TODO reset frighten
+		_ghost->RespawnGhost();
+		_ghost->EndFrightenedMode();
 	}
 }
 
@@ -46,5 +47,29 @@ void AGameManagerActor::increaseDotNumber()
 			aBlueGhost->setAIisActive(true);
 		}
 	}
+}
+
+void AGameManagerActor::initializeLivesUI(unsigned int lives)
+{
+	if (!livesSpritesTarget) return;
+
+	FActorSpawnParameters SpawnInfo;
+
+	for (unsigned int i = 0; i < lives; i++) {
+		FVector _location = livesSpritesTarget->GetActorLocation();
+		_location.X += 50 * i; // TODO constantes
+		ALifeSprite* _life = GetWorld()->SpawnActor<ALifeSprite>(_location, livesSpritesTarget->GetActorRotation(), SpawnInfo);
+		if (_life && lifeSprite) {
+			_life->setSprite(lifeSprite);
+		}
+		lifeSpriteArray.Add(_life);
+	}
+	livesLeft = lives;
+}
+
+void AGameManagerActor::decreaseLives()
+{
+	lifeSpriteArray[livesLeft - 1]->Destroy();
+	livesLeft--;
 }
 

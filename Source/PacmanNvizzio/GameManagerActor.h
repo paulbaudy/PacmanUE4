@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "LifeSprite.h"
+#include "PaperSpriteActor.h"
 #include "GhostController.h"
 #include "PaperFlipbook.h"
 #include "GhostCharacter.h"
@@ -23,7 +25,8 @@ public:
 
 	void increaseDotNumber();
 
-
+	void initializeLivesUI(unsigned int lives);
+	void decreaseLives();
 
 
 protected:
@@ -50,6 +53,15 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Sprite)
 	UPaperFlipbook* pFrightenedFlipbook;
 
+	UPROPERTY(EditAnywhere, Category = Sprite)
+	ATargetPoint* livesSpritesTarget;
+
+	UPROPERTY(EditAnywhere, Category = Sprite)
+	UPaperSprite* lifeSprite;
+
+	TArray<ALifeSprite*> lifeSpriteArray;
+
 	unsigned int iDotNumber;
+	unsigned int livesLeft;
 	
 };
