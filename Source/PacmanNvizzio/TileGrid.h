@@ -6,6 +6,9 @@
 #include "GameFramework/Actor.h"
 #include "TileGrid.generated.h"
 
+/*
+CLASS NOT USED
+*/
 UCLASS()
 class PACMANNVIZZIO_API ATileGrid : public AActor
 {

@@ -7,9 +7,8 @@
 #include "GhostController.h"
 #include "BTDecorator_IsDeciding.generated.h"
 
-/**
-*  Custom Behavior Tree decorator. Condition corresponds to the Ghost state,
-*  if he is active (In the start box) or not
+/*
+CLASS NOT USED
 */
 UCLASS()
 class PACMANNVIZZIO_API UBTDecorator_IsDeciding : public UBTDecorator
