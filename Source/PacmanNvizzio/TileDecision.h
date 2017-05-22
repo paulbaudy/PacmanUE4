@@ -6,6 +6,9 @@
 #include "GameFramework/Actor.h"
 #include "TileDecision.generated.h"
 
+/* 
+	CLASS NOT USED
+*/
 UCLASS()
 class PACMANNVIZZIO_API ATileDecision : public AActor
 {
