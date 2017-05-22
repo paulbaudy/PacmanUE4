@@ -4,3 +4,4 @@
 
 #include "Engine.h"
 
+#define TILESIZE 16.f

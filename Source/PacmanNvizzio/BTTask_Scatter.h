@@ -8,8 +8,9 @@
 #include "BTTask_Scatter.generated.h"
 
 /**
- * 
- */
+*  Custom Behavior Tree task. If ghost is currently in scatter mode,
+*  it will move to its current scatter destination
+*/
 UCLASS()
 class PACMANNVIZZIO_API UBTTask_Scatter : public UBTTask_BlackboardBase
 {

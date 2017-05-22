@@ -8,6 +8,9 @@
 #include "GameFramework/Actor.h"
 #include "dotGridActor.generated.h"
 
+/**
+*  Dot grid actor class. Represents a grid which contains multiple dots
+*/
 UCLASS()
 class PACMANNVIZZIO_API AdotGridActor : public AActor
 {
@@ -38,8 +41,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Sprite)
 	UPaperSprite* dotSprite;
 
-	
-
 	/* --- Grid properties --- */
 	// Distance between two dots - Tile size
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Grid)
@@ -53,6 +54,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Grid)
 	int numberY;
 
+	// Bonus points position
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Grid)
 	TArray<FIntVector> bonusPoints;
 	

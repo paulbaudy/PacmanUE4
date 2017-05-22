@@ -8,7 +8,8 @@
 #include "BTDecorator_Chasing.generated.h"
 
 /**
- * 
+ *  Custom Behavior Tree decorator. Condition corresponds to the Ghost state,
+ *  if he is chasing Pacman or not. 
  */
 UCLASS()
 class PACMANNVIZZIO_API UBTDecorator_Chasing : public UBTDecorator

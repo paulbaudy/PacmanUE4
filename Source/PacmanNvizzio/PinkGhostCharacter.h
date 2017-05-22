@@ -6,8 +6,8 @@
 #include "PinkGhostCharacter.generated.h"
 
 /**
- * 
- */
+*  Custom pink ghost character. Will try to go to pacman's direction
+*/
 UCLASS()
 class PACMANNVIZZIO_API APinkGhostCharacter : public AGhostCharacter
 {
@@ -17,4 +17,5 @@ class PACMANNVIZZIO_API APinkGhostCharacter : public AGhostCharacter
 
 	virtual FVector getPacmanOffset(FVector pacmanLocation, FVector pacmanDirection);
 	
+	const float pinkOffset = 8.f;
 };

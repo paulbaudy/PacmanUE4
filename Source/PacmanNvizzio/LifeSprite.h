@@ -20,9 +20,9 @@ public:
 protected:
 
 	/* --- COMPONENTS --- */
-
+	// Scene component for placement
 	USceneComponent* Root;
 
-
+	// Life sprite
 	UPaperSpriteComponent* spriteComponent;
 };

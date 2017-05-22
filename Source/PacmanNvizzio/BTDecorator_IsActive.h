@@ -8,8 +8,9 @@
 #include "BTDecorator_IsActive.generated.h"
 
 /**
- * 
- */
+*  Custom Behavior Tree decorator. Condition corresponds to the Ghost state,
+*  if he is active (In the start box) or not
+*/
 UCLASS()
 class PACMANNVIZZIO_API UBTDecorator_IsActive : public UBTDecorator
 {

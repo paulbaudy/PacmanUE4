@@ -21,6 +21,7 @@ class PACMANNVIZZIO_API UPacmanPawnMovement : public UFloatingPawnMovement
 private:
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 	
+	// If direction changes are not possible, go according to our velocity
 	void GoToCurrentDirection(float DeltaTime);
 
 	// Pacman's current velocity

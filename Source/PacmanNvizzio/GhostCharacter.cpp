@@ -10,14 +10,14 @@ AGhostCharacter::AGhostCharacter() : APaperCharacter() ,
 	iChasesNumber(4), 
 	fChaseDuration(20.f),
 	fScatterDuration(6.f),
-	fFrightenedDuration(10.f),// TODO constantes
+	fFrightenedDuration(10.f),
 	bChasing(false),
 	bFrightened(false),
 	bActive(true)
 {
 
-	GetCapsuleComponent()->SetCapsuleRadius(13.f); // TOdo constantes
-	GetCapsuleComponent()->SetCapsuleHalfHeight(13.f);
+	GetCapsuleComponent()->SetCapsuleRadius(capsuleRadius); 
+	GetCapsuleComponent()->SetCapsuleHalfHeight(capsuleRadius);
 
 	testbox = CreateDefaultSubobject<UBoxComponent>(TEXT("Test"));
 	testbox->SetBoxExtent(FVector(5.f, 30.f, 5.f));
@@ -43,6 +43,7 @@ void AGhostCharacter::TriggerScatteringMode()
 }
 
 void AGhostCharacter::StartBehavior() {
+	// Initialize scatter locations
 	if (ScatterLocation) {
 		vCurrentScatterLocation = ScatterLocation->GetActorLocation();
 		ScatterLocation->GetCollisionComponent()->OnComponentBeginOverlap.AddDynamic(this, &AGhostCharacter::OnOverlapBegin1);
@@ -107,14 +108,12 @@ void AGhostCharacter::triggerFrightenedMode(UPaperFlipbook* fFrightenedFlipbook)
 }
 
 void AGhostCharacter::EndFrightenedMode() {
+	// Returns to current mode
 	GetWorld()->GetTimerManager().UnPauseTimer(chaseTimer);
 	if (bFrightened) {
 		bFrightened = false;
 
 		GetSprite()->SetFlipbook(pBackupFlipbook);
-	}
-	else {
-		
 	}
 }
 
@@ -128,19 +127,12 @@ FVector AGhostCharacter::getCurrentScatterLocation() {
 
 FVector AGhostCharacter::getPacmanOffset(FVector pacmanLocation, FVector pacmanDirection)
 {
-	return pacmanLocation; // Returns the same location by default
+	return pacmanLocation; // Returns the same location by default (Red behavior)
 }
 
 void AGhostCharacter::OnOverlapBegin1(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if ((OtherActor != nullptr) && (OtherActor == this) && (OtherComp != nullptr)) {
-		if (aGridSystem) {
-			/* GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, FString::SanitizeFloat(aGridSystem->accessibleTiles(ScatterLocation->GetActorLocation())));
-			GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, aGridSystem->WorldToGrid(ScatterLocation->GetActorLocation()).ToString());
-			GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, aGridSystem->WorldToGrid(GetActorLocation()).ToString());
-			GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, GetVelocity().ToString()); */
-		}
-
 		if(ScatterLocation2)
 			vCurrentScatterLocation = ScatterLocation2->GetActorLocation();
 	}

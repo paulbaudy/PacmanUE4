@@ -6,7 +6,7 @@
 #include "BlueGhostCharacter.generated.h"
 
 /**
- * 
+ *  Custom Blue ghost character. Will move to symmetrical point compared to Red Ghost
  */
 UCLASS()
 class PACMANNVIZZIO_API ABlueGhostCharacter : public AGhostCharacter

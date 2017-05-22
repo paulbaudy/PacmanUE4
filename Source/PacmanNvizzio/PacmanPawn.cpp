@@ -13,12 +13,13 @@ APacmanPawn::APacmanPawn()
 	// Create our box collider root component
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("RootComponent"));
 	BoxComponent->SetMobility(EComponentMobility::Movable);
-	BoxComponent->SetBoxExtent(FVector(15.f, 15.f, 15.f));
+	BoxComponent->SetBoxExtent(FVector(TILESIZE-1, TILESIZE-1, TILESIZE-1)); // If box is the size of TILESIZE, it will collide constantly
 	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &APacmanPawn::OnOverlapBegin);
 	RootComponent = BoxComponent;
 
-	MoveAnimationPaper = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Sprite"));
-	MoveAnimationPaper->SetupAttachment(BoxComponent);
+	currentSprite = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Sprite"));
+	currentSprite->SetupAttachment(BoxComponent);
+	currentSprite->OnComponentBeginOverlap.AddDynamic(this, &APacmanPawn::OnOverlapBeginSprite);
 
 	PawnMovement = CreateDefaultSubobject<UPacmanPawnMovement>(TEXT("MovementComponent"));
 	// Lock character motion onto the XY plane, so the character can't move in or out of the screen
@@ -48,7 +49,7 @@ void APacmanPawn::BeginPlay()
 
 	dotToEat = FoundActors.Num();
 	initianSpawnLocation = GetActorLocation();
-	livesLeft = 4; // TODO constantes
+	livesLeft = 4;
 	bVulnerable = true;
 
 	if (aGameManager) {
@@ -73,7 +74,17 @@ void APacmanPawn::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Ot
 				RespawnPlayer();
 				aGameManager->RespawnCharacters();
 			}
-				
+		}
+	}
+}
+
+void APacmanPawn::OnOverlapBeginSprite(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr)) {
+		AdotActor* _dot = Cast<AdotActor>(OtherActor);
+		if (_dot) {
+			EatDot(_dot->getIsBonus());
+			_dot->Destroy();
 		}
 	}
 }
@@ -98,6 +109,7 @@ void APacmanPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	UpdateAnimation();
 }
 
 void APacmanPawn::EatDot(bool isBonus) {
@@ -129,6 +141,28 @@ void APacmanPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+}
+
+void APacmanPawn::UpdateAnimation()
+{
+	FVector newDirection = getCurrentDirection();
+
+	if (newDirection != lastDirection) {
+		if (newDirection.X > 0) {
+			currentSprite->SetFlipbook(LeftSprite);
+		}
+		else if (newDirection.X < 0) {
+			currentSprite->SetFlipbook(RightSprite);
+		}
+		else if (newDirection.Y > 0) {
+			currentSprite->SetFlipbook(UpSprite);
+		}
+		else if(newDirection.Y < 0) {
+			currentSprite->SetFlipbook(DownSprite);
+		}
+
+		lastDirection = newDirection;
+	}
 }
 
 /* Input functions */

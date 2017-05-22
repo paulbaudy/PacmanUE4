@@ -20,16 +20,14 @@ AdotGridActor::AdotGridActor()
 // Construction script
 void AdotGridActor::OnConstruction(const FTransform& Transform)
 {
-
+	// Delete all children
 	TArray<AActor*> temp;
 	GetAttachedActors(temp);
 
-	// auto iterate though all the actors you already have in the TArray
 	for (AActor* CActor : temp)
 	{
 		CActor->Destroy();
 	}
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::SanitizeFloat(bonusPoints.Num()));
 
 	if (!dotSprite) // If dot sprite is not set, safely return
 		return;
@@ -37,6 +35,7 @@ void AdotGridActor::OnConstruction(const FTransform& Transform)
 	FActorSpawnParameters SpawnInfo;
 	SpawnInfo.bNoFail = false;
 
+	// Spawn dot grid
 	for (int i = 0; i < numberX; i++) {
 		for (int j = 0; j < numberY; j++) {
 			
@@ -46,6 +45,7 @@ void AdotGridActor::OnConstruction(const FTransform& Transform)
 			AdotActor* newDot = GetWorld()->SpawnActor<AdotActor>(_location, GetActorRotation(), SpawnInfo);
 			newDot->setSprite(dotSprite);
 
+			// If new dot is not colliding with the map...
 			if (!newDot->isOverlapingMap()) {
 				newDot->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
 				if (bonusPoints.Contains(FIntVector(i, j, 0))) {

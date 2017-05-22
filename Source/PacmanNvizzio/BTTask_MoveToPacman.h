@@ -11,8 +11,10 @@
 #include "BTTask_MoveToPacman.generated.h"
 
 /**
- * 
- */
+*  Custom Behavior Tree task. If ghost is currently chasing Pacman, it will
+*  call the navigation system to find a path to it. 
+*  Ghost will move to Pacman according to its own offset. 
+*/
 UCLASS()
 class PACMANNVIZZIO_API UBTTask_MoveToPacman : public UBTTask_BlackboardBase
 {

@@ -13,7 +13,7 @@
 
 
 /**
- * 
+ *  Ghost character actor. 
  */
 UCLASS()
 class PACMANNVIZZIO_API AGhostCharacter : public APaperCharacter
@@ -60,6 +60,8 @@ protected:
 	FVector initianSpawnLocation;
 	FVector vCurrentScatterLocation;
 
+	const float capsuleRadius = 13.f;
+
 	/* --- COMPONENTS --- */
 	
 	// AI Behavior Tree
@@ -77,7 +79,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = Sprite)
 	UPaperFlipbook* pBackupFlipbook;
 
-	//Test
+	// Box obstacle behind our ghost for navigation system
 	UPROPERTY(EditAnywhere, Category = AI)
 	UBoxComponent* testbox;
 
@@ -110,15 +112,18 @@ public:
 	// Returns next scatter location
 	FVector getCurrentScatterLocation();
 
+	// Virtual function that defines where to go according to pacman's location and direction
+	// Must be defined for every ghosts
 	virtual FVector getPacmanOffset(FVector pacmanLocation, FVector pacmanDirection);
 
-	// Overlap function called when colliding with other actors
+	// Overlap function called when colliding with scatter locations
 	UFUNCTION()
 	void OnOverlapBegin1(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UFUNCTION()
 	void OnOverlapBegin2(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	// box obstacle filter for navigation system
 	UPROPERTY(EditAnywhere, Category = AI)
-	TSubclassOf<UNavigationQueryFilter> testquery;
+	TSubclassOf<UNavigationQueryFilter> filterQuery;
 };

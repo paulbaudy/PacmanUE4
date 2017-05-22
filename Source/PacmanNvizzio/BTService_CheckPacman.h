@@ -13,8 +13,9 @@
 #include "BTService_CheckPacman.generated.h"
 
 /**
- * 
- */
+*  Custom Behavior Tree Service. Called in order to detect Pacman's position
+*  and update it in behavior tree. 
+*/
 UCLASS()
 class PACMANNVIZZIO_API UBTService_CheckPacman : public UBTService
 {

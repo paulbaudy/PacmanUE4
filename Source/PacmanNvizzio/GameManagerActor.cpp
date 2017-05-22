@@ -37,12 +37,12 @@ void AGameManagerActor::RespawnCharacters() {
 void AGameManagerActor::increaseDotNumber()
 {
 	iDotNumber++;
-	if (iDotNumber >= 130) { // TODO variables
+	if (iDotNumber >= dotToEatOrange) {
 		if (aOrangeGhost && !aOrangeGhost->AIisActive()) {
 			aOrangeGhost->setAIisActive(true);
 		}
 	}
-	if (iDotNumber >= 30) {
+	if (iDotNumber >= dotToEatBlue) {
 		if (aBlueGhost && !aBlueGhost->AIisActive()) {
 			aBlueGhost->setAIisActive(true);
 		}
@@ -55,9 +55,10 @@ void AGameManagerActor::initializeLivesUI(unsigned int lives)
 
 	FActorSpawnParameters SpawnInfo;
 
+	// Spawn pacman lives sprites
 	for (unsigned int i = 0; i < lives; i++) {
 		FVector _location = livesSpritesTarget->GetActorLocation();
-		_location.X += 50 * i; // TODO constantes
+		_location.X += UILivesOffset * i;
 		ALifeSprite* _life = GetWorld()->SpawnActor<ALifeSprite>(_location, livesSpritesTarget->GetActorRotation(), SpawnInfo);
 		if (_life && lifeSprite) {
 			_life->setSprite(lifeSprite);
@@ -69,6 +70,7 @@ void AGameManagerActor::initializeLivesUI(unsigned int lives)
 
 void AGameManagerActor::decreaseLives()
 {
+	// Destroys sprite life
 	lifeSpriteArray[livesLeft - 1]->Destroy();
 	livesLeft--;
 }

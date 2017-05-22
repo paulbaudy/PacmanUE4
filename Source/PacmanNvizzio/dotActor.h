@@ -6,10 +6,12 @@
 #include "PaperSpriteActor.h"
 #include "PaperSprite.h"
 #include "PaperSpriteComponent.h"
-#include "PacmanPawn.h"
 #include "GameFramework/Actor.h"
 #include "dotActor.generated.h"
 
+/**
+*  Dot actor class. Represents a dot which can be eaten by Pacman. 
+*/
 UCLASS()
 class PACMANNVIZZIO_API AdotActor : public AActor
 {
@@ -25,10 +27,12 @@ public:
 	// Checks collisions during placement in the editor
 	bool isOverlapingMap();
 
+	// Bonus getter and setter
 	void setIsBonus(bool bonus);
+	bool getIsBonus();
 
 protected:
-	/* Custom construction script.
+	/* Custom construction script. Executed when placed in the editor
 	*/
 	virtual void OnConstruction(const FTransform& Transform) override;
 
@@ -48,11 +52,5 @@ protected:
 	// If this dot is a power-up for pacman. Can be set in editor
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Property)
 	bool bBonus;
-
-public:	
-	// Overlap function called when colliding with other actors
-	UFUNCTION()
-	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-
 	
 };

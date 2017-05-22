@@ -12,7 +12,7 @@ AOrangeGhostCharacter::AOrangeGhostCharacter() : AGhostCharacter()
 FVector AOrangeGhostCharacter::getPacmanOffset(FVector pacmanLocation, FVector pacmanDirection) {
 	FVector vecToPac = pacmanLocation - GetActorLocation();
 
-	if (FVector::DistSquared(pacmanLocation, GetActorLocation()) < (5 * 32)*(5 * 32)) {
+	if (FVector::DistSquared(pacmanLocation, GetActorLocation()) < (OrangeOffset * TILESIZE)*(OrangeOffset * TILESIZE)) {
 		return vCurrentScatterLocation;
 	}
 

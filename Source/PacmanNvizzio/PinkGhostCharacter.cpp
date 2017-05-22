@@ -10,5 +10,5 @@ APinkGhostCharacter::APinkGhostCharacter() : AGhostCharacter()
 
 
 FVector APinkGhostCharacter::getPacmanOffset(FVector pacmanLocation, FVector pacmanDirection) {
-	return pacmanLocation + pacmanDirection*8.f*16.f;
+	return pacmanLocation + pacmanDirection*pinkOffset*TILESIZE;
 }

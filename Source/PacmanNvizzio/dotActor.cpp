@@ -10,11 +10,12 @@ AdotActor::AdotActor()
 	PrimaryActorTick.bCanEverTick = false;
 	bBonus = false;
 
+	/* Root is a box collider component for collision detection  */
 	BoxComponent = CreateAbstractDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
 	BoxComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &AdotActor::OnOverlapBegin);
 	RootComponent = BoxComponent;
 
+	/* Dot sprite */
 	spriteComponent = CreateAbstractDefaultSubobject<UPaperSpriteComponent>(TEXT("Sprite"));
 	spriteComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	spriteComponent->SetupAttachment(BoxComponent);
@@ -23,6 +24,7 @@ AdotActor::AdotActor()
 
 void AdotActor::setSprite(UPaperSprite* dotSprite)
 {
+	// Set sprite and box extent according to its size
 	spriteComponent->SetSprite(dotSprite);
 	spriteComponent->SetRelativeRotation(FRotator(0.f, 0.f, 90.f));
 	BoxComponent->SetBoxExtent(FVector(dotSprite->GetSourceSize().X, dotSprite->GetSourceSize().Y, 1.f));
@@ -75,14 +77,7 @@ void AdotActor::setIsBonus(bool bonus) {
 	}
 }
 
-void AdotActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) {
-	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
-	{
-		APacmanPawn * _pacman = Cast<APacmanPawn>(OtherActor);
-		if (_pacman) {
-			_pacman->EatDot(bBonus);
-			Destroy();
-		}
-	}
+bool AdotActor::getIsBonus()
+{
+	return bBonus;
 }
-

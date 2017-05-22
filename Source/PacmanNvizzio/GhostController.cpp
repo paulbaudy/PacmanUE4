@@ -16,6 +16,7 @@ void AGhostController::Possess(APawn* InPawn)
 	AGhostCharacter* newGhost = Cast<AGhostCharacter>(InPawn);
 
 	if (newGhost && newGhost->getBehavior()) {
+		// Initialize blackboard and behavior tree
 		ghostBlackboard->InitializeBlackboard(*newGhost->getBehavior()->BlackboardAsset);
 
 		PacmanID = ghostBlackboard->GetKeyID("Pacman");
@@ -24,7 +25,6 @@ void AGhostController::Possess(APawn* InPawn)
 
 		ghostBehaviorTree->StartTree(*newGhost->getBehavior());
 		newGhost->StartBehavior();
-		firstCheck = true;
 	}
 	
 

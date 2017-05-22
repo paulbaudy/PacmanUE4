@@ -6,8 +6,8 @@
 #include "OrangeGhostCharacter.generated.h"
 
 /**
- * 
- */
+*  Custom Orange ghost character. Will go to scatter point if too close to pacman's location
+*/
 UCLASS()
 class PACMANNVIZZIO_API AOrangeGhostCharacter : public AGhostCharacter
 {
@@ -16,5 +16,7 @@ class PACMANNVIZZIO_API AOrangeGhostCharacter : public AGhostCharacter
 	AOrangeGhostCharacter();
 	
 	virtual FVector getPacmanOffset(FVector pacmanLocation, FVector pacmanDirection);
+
+	const int OrangeOffset = 10;
 	
 };

@@ -9,8 +9,8 @@
 #include "GhostController.generated.h"
 
 /**
- * 
- */
+*  Custom AI controller class.
+*/
 UCLASS()
 class PACMANNVIZZIO_API AGhostController : public AAIController
 {
@@ -39,6 +39,4 @@ public:
 
 	// Ghost owned by this AI Controller
 	AGhostCharacter* GhostOwner;
-
-	bool firstCheck;
 };
